@@ -95,7 +95,7 @@ read randomIrrelevant
 
 echo "Starting ipwndfu"
 
-string=$(../files/lsusb | grep -c "checkm8")
+string=$(./files/lsusb | grep -c "checkm8")
 until [ $string = 1 ];
 do
     killall iTunes && killall iTunesHelper
@@ -106,7 +106,7 @@ do
     echo "Please just enter DFU mode again on each reboot"
     echo "The script will run ipwndfu again and again until the device is in PWNDFU mode"
     ipwndfu -p
-    string=$(../files/lsusb | grep -c "checkm8")
+    string=$(./files/lsusb | grep -c "checkm8")
 done
 
 sleep 3
