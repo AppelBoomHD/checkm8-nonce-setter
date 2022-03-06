@@ -170,14 +170,22 @@ echo "Please connect device in DFU mode. Press enter when ready to continue"
 
 read randomIrrelevant
 
+if [ $device == iPhone10,3 ] || [ $device == iPhone10,6 ]; then
+    git clone https://github.com/MatthewPierson/ipwndfuA11
+    cd ipwndfuA11
+else
+    git clone https://github.com/MatthewPierson/ipwndfu_public.git
+    cd ipwndfu_public
+fi
 echo "Starting ipwndfu"
 
 string=$(../files/lsusb | grep -c "checkm8")
 until [ $string = 1 ];
 do
     killall iTunes && killall iTunesHelper
-    echo "Waiting 10 seconds to allow you to enter DFU mode"
-    sleep $((5 + $RANDOM % 20))
+    seconds=$((5 + $RANDOM % 20))
+    echo "Waiting $seconds seconds to allow you to enter DFU mode"
+    sleep $seconds
     echo "Attempting to get into pwndfu mode"
     echo "Please just enter DFU mode again on each reboot"
     echo "The script will run ipwndfu again and again until the device is in PWNDFU mode"
@@ -189,7 +197,7 @@ sleep 3
 
 if [ $device == iPhone10,3 ] || [ $device == iPhone10,6 ]; then
     echo "Device is an iPhone X, using akayn's signature check remover"
-    ./ipwndfu --patch
+    ipwndfu --patch
     sleep 1
 else
     echo "Device is NOT an iPhone X, using Linus's signature check remover"
