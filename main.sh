@@ -120,5 +120,8 @@ else
     python2 rmsigchks.py
     sleep 1
 fi
-cd ..
 echo "Device is now in PWNDFU mode with signature checks removed (Thanks to Linus Henze & akayn)"
+
+ipwndfu --repair-heap
+
+echo "heap repaired!"
